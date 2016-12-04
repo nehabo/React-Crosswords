@@ -1,1 +1,0 @@
-const WORDS = [{black: true; }]
