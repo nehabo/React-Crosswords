@@ -3,3 +3,16 @@ h1 { color: red; }
 .active { color: blue; }
 
 .blackedOut { background-color: black; }
+
+table {
+    counter-reset: rowNumber;
+}
+
+table tr {
+    counter-increment: rowNumber;
+}
+
+table tr td:first-child::before {
+    content: counter(rowNumber);
+    margin-right: 0.5em;
+}

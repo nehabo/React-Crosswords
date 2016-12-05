@@ -7,19 +7,7 @@ require('./styles.css');
 class Puzzle extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { grid:
-    [['0', '1', 'u', 'f', '', '0', '1', 'u', 'f', ''],
-      ['5', '', '', 'e', 'f', '0', '1', 'u', 'f', ''],
-      ['d', 't', 'g', '', '', '0', '1', 'u', 'f', ''],
-      ['x', 't', 'y', '', '', '0', '1', 'u', 'f', ''],
-      ['x', '', '', '', 'k', 'x', 't', 'y', '', ''],
-      ['0', '1', 'u', 'f', '', '5', '', '', 'e', 'f'],
-      ['5', '', '', 'e', 'f', 'x', 't', 'y', '', ''],
-      ['d', 't', 'g', '', '', 'x', 't', 'y', '', ''],
-      ['x', 't', 'y', '', '', 'd', 't', 'g', '', ''],
-      ['x', 't', 'y', '', '', 'd', 't', 'g', '', '']],
-      activeSquare: [],
-    };
+    this.state = { grid: this.props.getPuzzle, activeSquare: [] };
     this.renderRow = this.renderRow.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
@@ -34,8 +22,10 @@ class Puzzle extends React.Component {
     const grid = this.state.grid;
     if (event.which <= 90 && event.which >= 65) {
       grid[this.state.activeSquare[0]][this.state.activeSquare[1]] = event.key;
-      this.setState({ grid });
+    } else if (event.key === 'Backspace') {
+      grid[this.state.activeSquare[0]][this.state.activeSquare[1]] = '';
     }
+    this.setState({ grid });
   }
 
   onSubmit() {

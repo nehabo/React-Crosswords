@@ -7,15 +7,25 @@ class Square extends React.Component {
     this.state = {};
     this.onClick = this.onClick.bind(this);
   }
+
   onClick() {
     this.props.onClick(this.props.location);
   }
 
   render() {
-    const className = _.isEqual(this.props.activeSquare, this.props.location) ? 'active' : '';
-    const blackedOut = (this.props.answers === '') ? 'blackedOut' : '';
+    const compareSquare = _.isEqual(this.props.activeSquare, this.props.location)
+    let className;
+    if (this.props.value === null) {
+      className = 'blackedOut';
+    } else if (compareSquare && (this.props.value === null)) {
+      className = 'blackedOut';
+    } else if (compareSquare) {
+      className = 'active';
+    } else {
+      className = '';
+    }
     return (
-      <td className={className + blackedOut} value={this.props.value} onClick={this.onClick}>
+      <td className={className} value={this.props.value} onClick={this.onClick}>
         {this.props.value}
       </td>
     );
