@@ -4,7 +4,7 @@ h1 { color: red; }
 
 .blackedOut { background-color: black; }
 
-table {
+/*table {
     counter-reset: rowNumber;
 }
 
@@ -15,4 +15,18 @@ table tr {
 table tr td:first-child::before {
     content: counter(rowNumber);
     margin-right: 0.5em;
+}*/
+
+.cell {
+  position: relative;
+  display: inline-block;
+}
+.value {
+    position: absolute;;
+    left: 3em;
+}
+.numbers {
+    position: absolute;
+    left: 0px;
+    top: 0px;
 }

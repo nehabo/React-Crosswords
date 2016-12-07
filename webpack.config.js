@@ -1,6 +1,8 @@
 module.exports = {
 // entry point(s) for app
   entry: [
+    'webpack-dev-server/client?http://localhost:8080',
+    'webpack/hot/only-dev-server',
     './app/index.js',
   ],
 // transcompilers location

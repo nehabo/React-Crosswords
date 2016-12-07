@@ -9,24 +9,29 @@ class Square extends React.Component {
   }
 
   onClick() {
-    this.props.onClick(this.props.location);
+    if (this.props.value !== null) {
+      this.props.onClick(this.props.location);
+    }
   }
 
   render() {
-    const compareSquare = _.isEqual(this.props.activeSquare, this.props.location)
+    const activeSquare = _.isEqual(this.props.activeSquare, this.props.location)
     let className;
     if (this.props.value === null) {
       className = 'blackedOut';
-    } else if (compareSquare && (this.props.value === null)) {
+    } else if (activeSquare && (this.props.value === null)) {
       className = 'blackedOut';
-    } else if (compareSquare) {
+    } else if (activeSquare) {
       className = 'active';
     } else {
       className = '';
     }
     return (
       <td className={className} value={this.props.value} onClick={this.onClick}>
-        {this.props.value}
+        <div className="cell">
+          <div className="numbers">2</div>
+          <div className="value">{this.props.value}</div>
+        </div>
       </td>
     );
   }
