@@ -4,6 +4,10 @@ h1 { color: red; }
 
 .blackedOut { background-color: black; }
 
+body {
+  font-family: courier new, Helvetica, Arial, sans-serif;
+}
+
 /*table {
     counter-reset: rowNumber;
 }
@@ -16,17 +20,70 @@ table tr td:first-child::before {
     content: counter(rowNumber);
     margin-right: 0.5em;
 }*/
+.container-fluid.headernav {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.jumbotron {
+    padding-top: 6em;
+    padding-bottom: 3em;
+    margin-bottom: 5px;
+    background-color: gray;
+    color: whitesmoke;
+}
+Link {
+  text-decoration: none;
+}
+.navbar {
+  position: fixed;
+  min-height: 50;
+  margin-bottom: 0;
+  border: 1px solid transparent;
+  width: 100%;
+  z-index: 2;
+}
+
+.table {
+  align-content: stretch;
+  width:90%;
+  margin:auto;
+}
+
+.btn {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  background-color: #222;
+  color: whitesmoke;
+}
+.td {
+  width: 33.33%;
+  position: relative;
+}
+
+td:after{
+    content:'';
+    display:block;
+    margin-top:100%;
+}
+.focus {
+  background-color: orange;
+}
 
 .cell {
   position: relative;
   display: inline-block;
+  /*width: 10px;*/
+  /*height: 10px;*/
 }
 .value {
     position: absolute;;
-    left: 3em;
+    left: 1em;
 }
 .numbers {
     position: absolute;
     left: 0px;
     top: 0px;
+    font-size: 9;
 }

@@ -1,73 +1,89 @@
 import _ from 'lodash';
 import React from 'react';
-import Row from './row';
+import { browserHistory } from 'react-router';
+import Grid from './grid';
 
 require('./styles.css');
 
 class Puzzle extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { grid: this.props.getPuzzle, activeSquare: [] };
-    this.renderRow = this.renderRow.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  componentDidMount() {
-    document.addEventListener('keydown', this.onKeyDown);
+  getQuestions(grid) {
+    const updatedGrid = [];
+    _.each(grid, (row, rowIndex) => {
+      updatedGrid[rowIndex] = [];
+      _.each(row, (column, columnIndex) => {
+        if (column !== 'BLACKED_OUT') {
+          updatedGrid[rowIndex][columnIndex] = '';
+          return;
+        }
+        updatedGrid[rowIndex][columnIndex] = 'BLACKED_OUT';
+      });
+    });
+    return updatedGrid;
   }
 
-  onKeyDown(event) {
-    const grid = this.state.grid;
-    if (event.which <= 90 && event.which >= 65) {
-      grid[this.state.activeSquare[0]][this.state.activeSquare[1]] = event.key;
-    } else if (event.key === 'Backspace') {
-      grid[this.state.activeSquare[0]][this.state.activeSquare[1]] = '';
-    }
-    this.setState({ grid });
-  }
-
-  onSubmit() {
-    if (_.isEqual(this.state.grid, this.props.answers)) {
-      alert('you won!');
+  onSubmit(data) {
+    console.log(this.props.grid);
+    console.log(data);
+    if (_.isEqual(this.props.grid, data)) {
+      alert('you win!');
     } else {
-      alert('you lost');
+      alert('you lose');
     }
-  }
-
-  handleClick(location) {
-    this.setState({ activeSquare: location });
-  }
-
-  renderRow(i) {
-    return (<Row
-      i={i} activeSquare={this.state.activeSquare} grid={this.state.grid}
-      onClick={this.handleClick}
-    />);
   }
 
   render() {
+    const across = _.filter(this.props.wordClues, { direction: 0 });
+    const below = _.filter(this.props.wordClues, { direction: 1 });
     return (
       <div>
-        <div className="container">
-          <table className="Puzzle table table-bordered">
-            <tbody>
-              {this.renderRow(0)}
-              {this.renderRow(1)}
-              {this.renderRow(2)}
-              {this.renderRow(3)}
-              {this.renderRow(4)}
-              {this.renderRow(5)}
-              {this.renderRow(6)}
-              {this.renderRow(7)}
-              {this.renderRow(8)}
-              {this.renderRow(9)}
-            </tbody>
-          </table>
+        <div className="container-fluid headerNav">
+          <nav className="navbar navbar-inverse">
+            <ul className="nav navbar-nav">
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Create</a></li>
+              <li><a href="#">Play</a></li>
+              <li><a href="#">Help</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div className="jumbotron">
+          <h2>Generate A Crossword Puzzle</h2>
         </div>
         <div className="container">
-          <button onClick={this.onSubmit}>SUBMIT</button>
+          <div className="row">
+            <div className="col-md-6">
+              <Grid
+                data={this.getQuestions(this.props.grid)}
+                onSubmit={this.onSubmit}
+              />
+            </div>
+            <div className="col-md-6">
+              <h3>CLUES</h3>
+              <div className="col-md-3">
+                <div><h4>ACROSS</h4>
+                  <ul>
+                    {_.map(across, item =>
+                      <li>{item.startPoint}: {item.clue}</li>
+                    )}
+                  </ul>
+                </div>
+              </div>
+              <div className="col-md-3">
+                <div><h4>BELOW</h4>
+                  <ul>
+                    {_.map(below, item =>
+                      <li>{item.startPoint}: {item.clue}</li>
+                  )}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

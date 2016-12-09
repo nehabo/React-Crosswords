@@ -10,6 +10,7 @@ class Row extends React.Component {
   renderSquare(i, j) {
     return (<Square
       location={[i, j]} activeSquare={this.props.activeSquare}
+      activeSquares={this.props.activeSquares}
       value={this.props.grid[i][j]} onClick={this.props.onClick}
     />);
   }

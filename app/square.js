@@ -14,23 +14,30 @@ class Square extends React.Component {
     }
   }
 
+  includes(collection, value) {
+    return _.filter(collection, item => _.isEqual(item, value)).length > 0;
+  }
+
   render() {
     const activeSquare = _.isEqual(this.props.activeSquare, this.props.location)
-    let className;
-    if (this.props.value === null) {
+    let value = this.props.value;
+    let className = '';
+    if (value === 'BLACKED_OUT') {
+      value = '';
       className = 'blackedOut';
-    } else if (activeSquare && (this.props.value === null)) {
+    } else if (activeSquare && (value === 'BLACKED_OUT')) {
+      value = '';
       className = 'blackedOut';
+    } else if (this.includes(this.props.activeSquares, this.props.location)) {
+      className = 'focus';
     } else if (activeSquare) {
       className = 'active';
-    } else {
-      className = '';
     }
     return (
-      <td className={className} value={this.props.value} onClick={this.onClick}>
+      <td className={className} value={value} onClick={this.onClick}>
         <div className="cell">
           <div className="numbers">2</div>
-          <div className="value">{this.props.value}</div>
+          <div className="value">{value}</div>
         </div>
       </td>
     );
