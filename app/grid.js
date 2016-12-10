@@ -86,8 +86,9 @@ class Grid extends React.Component {
         <div className="container">
           <div className="row">
             <div className="text-center">
-              <button className="btn btn-lg btn-block" onClick={this.onSubmit}>
-                CREATE PUZZLE!
+              <button className="btn btn-lg btn-block" onClick={this.onSubmit}
+                buttonLabel={this.props.buttonLabel}>
+                {this.props.buttonLabel}
               </button>
             </div>
           </div>
@@ -97,7 +98,16 @@ class Grid extends React.Component {
   }
 }
 Grid.defaultProps = {
-  data: [['','','','','','','','','',''], ['','','','','','','','','',''], ['','','','','','','','','',''], ['','','','','','','','','',''], ['','','','','','','','','',''], ['','','','','','','','','',''], ['','','','','','','','','',''], ['','','','','','','','','',''], ['','','','','','','','','',''], ['','','','','','','','','','']],
+  data: [['', '', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', '', ''],
+  ['', '', '', '', '', '', '', '', '', '']],
   onKeyDown: () => {},
   onCellClick: () => {},
 };

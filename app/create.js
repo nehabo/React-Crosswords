@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { browserHistory } from 'react-router';
-import Grid from './grid';
+import Template from './template';
 
 
 class Create extends React.Component {
@@ -100,58 +100,25 @@ class Create extends React.Component {
       grid,
     });
     console.log(JSON.stringify(grid));
+    console.log(JSON.stringify(this.state.wordClues));
     browserHistory.push('play');
   }
 
   render() {
-    const across = _.filter(this.state.wordClues, { direction: 0 });
-    const below = _.filter(this.state.wordClues, { direction: 1 });
+    const props = {
+      across: _.filter(this.state.wordClues, { direction: 0 }),
+      below: _.filter(this.state.wordClues, { direction: 1 }),
+      title: 'Generate a Crossword Puzzle',
+      onCellClick: this.onCellClick,
+      onKeyDown: this.onKeyDown,
+      activeSquares: this.state.activeSquares,
+      onSubmit: this.createPuzzle,
+      Clues: this.props.Clues,
+      buttonLabel: 'Create Puzzle!',
+    };
     return (
       <div>
-        <div className="container-fluid headerNav">
-          <nav className="navbar navbar-inverse">
-            <ul className="nav navbar-nav">
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Create</a></li>
-              <li><a href="#">Play</a></li>
-              <li><a href="#">Help</a></li>
-            </ul>
-          </nav>
-        </div>
-        <div className="jumbotron">
-          <h2>Generate A Crossword Puzzle</h2>
-        </div>
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6">
-              <Grid
-                onCellClick={this.onCellClick} onKeyDown={this.onKeyDown}
-                activeSquares={this.state.activeSquares} onSubmit={this.createPuzzle}
-              />
-            </div>
-            <div className="col-md-6">
-              <h3>CLUES</h3>
-              <div className="col-md-6">
-                <div><h4>ACROSS</h4>
-                  <ul>
-                    {_.map(across, item =>
-                      <li>{item.startPoint}: {item.clue}</li>
-                    )}
-                  </ul>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div><h4>BELOW</h4>
-                  <ul>
-                    {_.map(below, item =>
-                      <li>{item.startPoint}: {item.clue}</li>
-                  )}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Template {...props} />
       </div>
     );
   }
