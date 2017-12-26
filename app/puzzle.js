@@ -11,8 +11,6 @@ class Puzzle extends React.Component {
   }
 
   onSubmit(data) {
-    console.log(this.props.grid);
-    console.log(data);
     if (_.isEqual(this.props.grid, data)) {
       alert('you win!');
     } else {
