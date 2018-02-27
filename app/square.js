@@ -36,7 +36,7 @@ class Square extends React.Component {
     return (
       <td className={className} value={value} onClick={this.onClick}>
         <div className="cell">
-          <div className="numbers">2</div>
+          <div className="numbers"></div>
           <div className="value">{value}</div>
         </div>
       </td>
